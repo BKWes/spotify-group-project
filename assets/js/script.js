@@ -26,4 +26,44 @@ function aristSearch(event) {
 	});
 };
 
+function artistAlbums(artistCode) {
+	fetch("https://spotify23.p.rapidapi.com/artist_albums/?id="+artistCode+"&offset=0&limit=50", {
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "spotify23.p.rapidapi.com",
+			"x-rapidapi-key": "50a402ad5dmsh8a86b4453bff8b5p1cd337jsn4a81dd6a5d42"
+		}
+	})
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(data) {
+		let albumArr = data.data.artist.discography.albums.items; 
+		// get album array
+		console.log(albumArr);
+		for (var i=0; i<albumArr.length; i++) {
+			console.log(albumArr[i].releases.items);
+// create album card from api data
+			var albumCard = document.createElement('div');
+			albumCard.addClass('card');
+		
+			var albumArt = document.createElement('img');
+			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0]);
+			albumArt.addClass('card-img-top');
+			albumCard.appendChild(albumArt);
+
+			var albumTitle = document.createElement('h4');
+			albumTitle.textContent = albumArr[i].releases.items[0].name;
+			albumTitle.addClass('card-title');
+			albumCard.appendChild('albumTitle');
+		
+			artistAlbumEl.appendChild(albumCard);
+
+		}
+	})
+	.catch(function(err) {
+		console.log(err);
+	})
+};
+
 $("#search-form").submit(aristSearch);
