@@ -3,3 +3,8 @@
     font-size: 16px;
     list-style: none;
 }
+/* add class to size cover art -this was the easiest way i thought of -W */
+.cover-art {
+    height: 300px;
+    width: 300px;
+}

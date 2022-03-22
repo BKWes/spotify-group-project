@@ -1,5 +1,6 @@
-let artistNameEl = $('#artist')
-
+let artistNameEl = $('#artist');
+let artistAlbumEl = $('#artistAlbum');
+let currentArtistName = $('#currentArtist');
 
 
 function aristSearch(event) {
@@ -17,13 +18,61 @@ function aristSearch(event) {
 		return responce.json();
 	})
 	.then(function(data) {
+        // clear artist header and change name to artist searched
+        currentArtistName.text('');
+        currentArtistName.text(data.artists.items[0].data.profile.name);
+        // console.log(data.artists.items[0].data.profile.name);
+
 		let artistUri = data.artists.items[0].data.uri;
 		let artistCode = artistUri.slice(15);
 		console.log(artistCode);
+		artistAlbums(artistCode);
 	})
 	.catch(function(err) {
 		console.error(err);
 	});
+};
+
+function artistAlbums(artistCode) {
+	fetch("https://spotify23.p.rapidapi.com/artist_albums/?id="+artistCode+"&offset=0&limit=50", {
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "spotify23.p.rapidapi.com",
+			"x-rapidapi-key": "50a402ad5dmsh8a86b4453bff8b5p1cd337jsn4a81dd6a5d42"
+		}
+	})
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(data) {
+		let albumArr = data.data.artist.discography.albums.items; 
+		// get album array
+		// console.log(albumArr);
+		for (var i=0; i<albumArr.length; i++) {
+			// console.log(albumArr[i].releases.items);
+// create album card from api data
+			var albumCard = document.createElement('div');
+			albumCard.classList.add('card');
+		
+            // console.log(albumArr[i].releases.items[0].coverArt.sources[0]);
+			var albumArt = document.createElement('img');
+			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0].url);
+			albumArt.classList.add('card-img-top');
+            albumArt.classList.add('cover-art');
+			albumCard.append(albumArt);
+
+			var albumTitle = document.createElement('h4');
+			albumTitle.textContent = albumArr[i].releases.items[0].name;
+			albumTitle.classList.add('card-title');
+			albumCard.append(albumTitle);
+		
+			artistAlbumEl.append(albumCard);
+
+		}
+	})
+	.catch(function(err) {
+		console.log(err);
+	})
 };
 
 $("#search-form").submit(aristSearch);
