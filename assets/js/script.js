@@ -1,4 +1,5 @@
 let artistNameEl = $('#artist')
+let artistAlbumEl = $('#artistAlbum')
 
 
 
@@ -46,19 +47,19 @@ function artistAlbums(artistCode) {
 			console.log(albumArr[i].releases.items);
 // create album card from api data
 			var albumCard = document.createElement('div');
-			albumCard.addClass('card');
+			albumCard.classList.add('card');
 		
 			var albumArt = document.createElement('img');
 			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0]);
-			albumArt.addClass('card-img-top');
-			albumCard.appendChild(albumArt);
+			albumArt.classList.add('card-img-top');
+			albumCard.append(albumArt);
 
 			var albumTitle = document.createElement('h4');
 			albumTitle.textContent = albumArr[i].releases.items[0].name;
-			albumTitle.addClass('card-title');
-			albumCard.appendChild('albumTitle');
+			albumTitle.classList.add('card-title');
+			albumCard.append(albumTitle);
 		
-			artistAlbumEl.appendChild(albumCard);
+			artistAlbumEl.append(albumCard);
 
 		}
 	})
