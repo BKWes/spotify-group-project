@@ -2,6 +2,9 @@ let artistNameEl = $('#artist');
 let artistAlbumEl = $('#artistAlbum');
 let currentArtistName = $('#currentArtist');
 let artistBioEl = $('#artist-bio');
+let albumCard = null;
+let albumArt = null;
+let albumTitle = null;
 
 
 function aristSearch(event) {
@@ -47,7 +50,8 @@ function artistAlbums(artistCode) {
 		return response.json();
 	})
 	.then(function(data) {
-		let albumArr = data.data.artist.discography.albums.items; 
+		let albumArr = data.data.artist.discography.albums.items;
+		artistAlbumEl.empty(); 
 		// get album array
 		// console.log(albumArr);
 		for (var i=0; i<albumArr.length; i++) {
@@ -69,7 +73,6 @@ function artistAlbums(artistCode) {
 			albumCard.append(albumTitle);
 		
 			artistAlbumEl.append(albumCard);
-
 		}
 	})
 	.catch(function(err) {
@@ -112,6 +115,8 @@ function artistBio(artistName) {
     .catch(function() {
         console.log(err);
     })
-}
+};
+
+
 
 $("#search-form").submit(aristSearch);
