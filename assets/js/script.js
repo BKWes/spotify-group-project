@@ -20,6 +20,7 @@ function aristSearch(event) {
 		let artistUri = data.artists.items[0].data.uri;
 		let artistCode = artistUri.slice(15);
 		console.log(artistCode);
+		artistAlbums(artistCode);
 	})
 	.catch(function(err) {
 		console.error(err);
