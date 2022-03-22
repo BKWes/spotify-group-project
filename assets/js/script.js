@@ -42,16 +42,18 @@ function artistAlbums(artistCode) {
 	.then(function(data) {
 		let albumArr = data.data.artist.discography.albums.items; 
 		// get album array
-		console.log(albumArr);
+		// console.log(albumArr);
 		for (var i=0; i<albumArr.length; i++) {
-			console.log(albumArr[i].releases.items);
+			// console.log(albumArr[i].releases.items);
 // create album card from api data
 			var albumCard = document.createElement('div');
 			albumCard.classList.add('card');
 		
+            console.log(albumArr[i].releases.items[0].coverArt.sources[0]);
 			var albumArt = document.createElement('img');
-			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0]);
+			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0].url);
 			albumArt.classList.add('card-img-top');
+            albumArt.classList.add('cover-art');
 			albumCard.append(albumArt);
 
 			var albumTitle = document.createElement('h4');
