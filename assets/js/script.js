@@ -1,6 +1,7 @@
 let artistNameEl = $('#artist');
 let artistAlbumEl = $('#artistAlbum');
 let currentArtistName = $('#currentArtist');
+let artistBioEl = $('#artist-bio');
 
 
 function aristSearch(event) {
@@ -27,6 +28,7 @@ function aristSearch(event) {
 		let artistCode = artistUri.slice(15);
 		console.log(artistCode);
 		artistAlbums(artistCode);
+		artistBio(artistName);
 	})
 	.catch(function(err) {
 		console.error(err);
@@ -74,5 +76,42 @@ function artistAlbums(artistCode) {
 		console.log(err);
 	})
 };
+
+function artistBio(artistName) {
+	let artistNameDash = artistName.replace(" ","_")
+    let wikiUrl = 'https://en.wikipedia.org/wiki/' + artistNameDash
+    let apiUrl = "https://en.wikipedia.org/w/api.php?explaintext&" +
+    new URLSearchParams({
+        origin: "*",
+        action: "query",
+        titles: artistName,
+        format: "json",
+        prop: "extracts",
+        redirects: "1",
+    });
+    fetch(apiUrl)
+    .then(function(responce) {
+        if (responce.ok) {
+            responce.json().then(function(data) {
+                console.log(data);
+                artistBioEl.empty();
+                let pageId = Object.getOwnPropertyNames(data.query.pages)[0]
+                let artistBio = data.query.pages[pageId].extract
+                if (artistBio.length > 1001) {
+                    artistBio = artistBio.substring(0, 1000) + "...";
+                }
+                let wikiLink = $("<a></a>", {href: wikiUrl}).text("view more");
+                artistBioEl.append(artistBio, wikiLink);
+
+
+            })
+        } else {
+            console.log(err);
+        }
+    })
+    .catch(function() {
+        console.log(err);
+    })
+}
 
 $("#search-form").submit(aristSearch);
