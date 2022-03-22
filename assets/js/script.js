@@ -21,7 +21,8 @@ function aristSearch(event) {
         // clear artist header and change name to artist searched
         currentArtistName.text('');
         currentArtistName.text(data.artists.items[0].data.profile.name);
-        console.log(data.artists.items[0].data.profile.name);
+        // console.log(data.artists.items[0].data.profile.name);
+
 		let artistUri = data.artists.items[0].data.uri;
 		let artistCode = artistUri.slice(15);
 		console.log(artistCode);
@@ -53,7 +54,7 @@ function artistAlbums(artistCode) {
 			var albumCard = document.createElement('div');
 			albumCard.classList.add('card');
 		
-            console.log(albumArr[i].releases.items[0].coverArt.sources[0]);
+            // console.log(albumArr[i].releases.items[0].coverArt.sources[0]);
 			var albumArt = document.createElement('img');
 			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0].url);
 			albumArt.classList.add('card-img-top');
