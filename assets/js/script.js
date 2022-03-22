@@ -1,6 +1,6 @@
-let artistNameEl = $('#artist')
-let artistAlbumEl = $('#artistAlbum')
-
+let artistNameEl = $('#artist');
+let artistAlbumEl = $('#artistAlbum');
+let currentArtistName = $('#currentArtist');
 
 
 function aristSearch(event) {
@@ -18,6 +18,10 @@ function aristSearch(event) {
 		return responce.json();
 	})
 	.then(function(data) {
+        // clear artist header and change name to artist searched
+        currentArtistName.text('');
+        currentArtistName.text(data.artists.items[0].data.profile.name);
+        console.log(data.artists.items[0].data.profile.name);
 		let artistUri = data.artists.items[0].data.uri;
 		let artistCode = artistUri.slice(15);
 		console.log(artistCode);
