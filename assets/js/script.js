@@ -49,7 +49,7 @@ function artistAlbums(artistCode) {
 	.then(function(data) {
 		let albumArr = data.data.artist.discography.albums.items; 
 		// get album array
-		console.log(albumArr);
+		// console.log(albumArr);
 		for (var i=0; i<albumArr.length; i++) {
 			// console.log(albumArr[i].releases.items);
 		// create album card from api data
@@ -57,13 +57,20 @@ function artistAlbums(artistCode) {
 			albumCard.classList.add('card');
 		
             // console.log(albumArr[i].releases.items[0].coverArt.sources[0]);
+			// set album image to link to spotify web player
+			var albumLink = document.createElement('a');
+			albumLink.setAttribute("href", "https://open.spotify.com/album/"+albumArr[i].releases.items[0].id);
+			albumLink.setAttribute("target", "_blank");
+
 			var albumArt = document.createElement('img');
 			albumArt.setAttribute("src", albumArr[i].releases.items[0].coverArt.sources[0].url);
-			// set album image to link to spotify web player
-			albumArt.setAttribute("href", "https://open.spotify.com/album/"+albumArr[i].releases.items[0].id);
+			console.log(albumArr[i].releases.items[0].id);
+
 			albumArt.classList.add('card-img-top');
             albumArt.classList.add('cover-art');
-			albumCard.append(albumArt);
+			albumLink.append(albumArt);
+
+			albumCard.append(albumLink);
 
 			var albumTitle = document.createElement('h4');
 			albumTitle.textContent = albumArr[i].releases.items[0].name;
