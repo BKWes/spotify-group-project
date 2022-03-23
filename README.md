@@ -11,6 +11,10 @@ GitHub Repository: https://github.com/mhabbo01/spotify-group-project
 
 ## Screenshot 
 
+![Spotify Group Project](https://user-images.githubusercontent.com/96854206/159600041-2aaf4abc-7e6f-47ee-a85a-35e8a4ea6820.png)
+
+
+
 ## Created By
 [Matt Jerich](https://github.com/MJerich)  
 [Camryn Goins](https://github.com/camryngoins)  
