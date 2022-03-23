@@ -8,9 +8,9 @@ This group project was assigned through MSU Coding Bootcamp and was created usin
 ## Screenshot 
 
 ## Created By
-Matt Jerich
-Camryn Goins
-Weston Barnes
-Matthew Habbo 
+[Matt Jerich](https://github.com/MJerich)  
+[Camryn Goins](https://github.com/camryngoins)  
+[Weston Barnes](https://github.com/bkwes)  
+[Matthew Habbo](https://github.com/mhabbo01)  
 
 
