@@ -90,39 +90,21 @@ function artistAlbums(artistCode) {
 };
 
 function artistBio(artistName) {
-	let artistNameDash = artistName.replace(" ","_")
-    let wikiUrl = 'https://en.wikipedia.org/wiki/' + artistNameDash
-    let apiUrl = "https://en.wikipedia.org/w/api.php?explaintext&" +
-    new URLSearchParams({
-        origin: "*",
-        action: "query",
-        titles: artistName,
-        format: "json",
-        prop: "extracts",
-        redirects: "1",
-    });
+	let artistNameDash = artistName.replace(" ","%20")
+    let apiUrl = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artistNameDash+"&api_key=c4428a390a78aa81abc74050eaec06ff&format=json"
     fetch(apiUrl)
     .then(function(responce) {
         if (responce.ok) {
             responce.json().then(function(data) {
-                console.log(data);
                 artistBioEl.empty();
-                let pageId = Object.getOwnPropertyNames(data.query.pages)[0]
-                let artistBio = data.query.pages[pageId].extract
-                if (artistBio.length > 1001) {
-                    artistBio = artistBio.substring(0, 1000) + "...";
+                let artistNotFound = "The artist you supplied could not be found"
+                if (data.message === artistNotFound) {
+                    artistBioEl.append(artistNotFound)
+                } else {
+                    artistBioEl.append(data.artist.bio.summary)
                 }
-                let wikiLink = $("<a></a>", {href: wikiUrl}).text("view more");
-                artistBioEl.append(artistBio, wikiLink);
-
-
             })
-        } else {
-            console.log(err);
-        }
-    })
-    .catch(function() {
-        console.log(err);
+        } 
     })
 };
 
