@@ -34,7 +34,14 @@ function aristSearch(event) {
 		artistBio(artistName);
 	})
 	.catch(function(err) {
-		console.error(err);
+		// create error message if the user input is not on Spotify
+		artistAlbumEl.empty();
+
+		var errorMsg = document.createElement('span');
+		errorMsg.textContent = "The artist you searched could not be found on Spotify, please try again.";
+		artistAlbumEl.append(errorMsg);
+
+		// console.error(err);
 	});
 };
 
@@ -50,6 +57,7 @@ function artistAlbums(artistCode) {
 		return response.json();
 	})
 	.then(function(data) {
+		
 		let albumArr = data.data.artist.discography.albums.items;
 		artistAlbumEl.empty(); 
 		// get album array
@@ -82,7 +90,8 @@ function artistAlbums(artistCode) {
 			albumCard.append(albumTitle);
 		
 			artistAlbumEl.append(albumCard);
-		}
+	}
+		
 	})
 	.catch(function(err) {
 		console.log(err);
