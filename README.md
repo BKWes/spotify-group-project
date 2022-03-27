@@ -6,6 +6,7 @@ This group project was assigned through MSU Coding Bootcamp and was created usin
 In this project our group came up with the idea of creating an application that allows a user to search for a band or an artist, and then a biography of that band/artist, as well as their top 10 albums will appear. This was created using the Spotify API as well as the LastFM API. The Javascript was done by Matt Jerich and Weston Barnes, and the front end portion (HTML, CSS, Bootsrap) was done by Camryn Goins and Matthew Habbo. 
 
 ## Links
+Live Application: https://mhabbo01.github.io/spotify-group-project/
 
 GitHub Repository: https://github.com/mhabbo01/spotify-group-project
 
